@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- net8.0-windows10.0.19041.0: bringt die Windows-SDK-Contracts mit,
+         damit WinRT-APIs (Windows Hello / UserConsentVerifier) nutzbar sind. -->
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sentinel.Core\Sentinel.Core.csproj" />
+  </ItemGroup>
+
+  <!-- WMI für Windows-Benutzerabfragen -->
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

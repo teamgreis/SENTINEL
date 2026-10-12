@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Gleiches TFM wie Platform (für WinRT/Windows Hello) -->
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Sentinel.App</RootNamespace>
+    <AssemblyName>Sentinel</AssemblyName>
+    <ApplicationIcon />
+    <Version>2.3.0</Version>
+    <Product>SENTINEL</Product>
+    <Company>Felix Greis</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sentinel.Core\Sentinel.Core.csproj" />
+    <ProjectReference Include="..\Sentinel.Platform\Sentinel.Platform.csproj" />
+  </ItemGroup>
+
+</Project>

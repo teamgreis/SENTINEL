@@ -1,0 +1,75 @@
+<Window x:Class="Sentinel.App.LockWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SENTINEL 2.3 Beta — Gesperrt"
+        Height="640" Width="460"
+        Background="{StaticResource Bg}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Topmost="True">
+
+    <Grid Margin="40">
+        <StackPanel VerticalAlignment="Center">
+
+            <!-- Branding -->
+            <TextBlock Text="SENTINEL" HorizontalAlignment="Center"
+                       FontSize="34" FontWeight="FontWeights.Light" Foreground="White"/>
+            <TextBlock Text="2.3 Beta" HorizontalAlignment="Center" FontSize="13"
+                       Foreground="{StaticResource TextMuted}" Margin="0,2,0,0"/>
+            <TextBlock Text="© Felix Greis (Alias: Elian)" HorizontalAlignment="Center" FontSize="10"
+                       Foreground="{StaticResource TextFaint}" Margin="0,3,0,0"/>
+
+            <Border Style="{StaticResource Card}" Margin="0,28,0,0">
+                <StackPanel>
+
+                    <TextBlock x:Name="LockedTitle" Text="SENTINEL ist gesperrt"
+                               Style="{StaticResource Heading}" FontSize="18"/>
+                    <TextBlock x:Name="LockedSubtitle" Style="{StaticResource Muted}"
+                               Margin="0,4,0,18" TextWrapping="Wrap"
+                               Text="Melde dich an, um fortzufahren."/>
+
+                    <!-- Nutzerauswahl -->
+                    <TextBlock Text="NUTZER" Style="{StaticResource Eyebrow}"/>
+                    <ComboBox x:Name="UserComboBox" Margin="0,0,0,14"
+                              DisplayMemberPath="DisplayName" SelectionChanged="UserComboBox_SelectionChanged"/>
+
+                    <!-- Passwort -->
+                    <TextBlock Text="PASSWORT" Style="{StaticResource Eyebrow}"/>
+                    <PasswordBox x:Name="PasswordBox" Margin="0,0,0,10"
+                                 KeyDown="PasswordBox_KeyDown"/>
+
+                    <!-- Windows Hello -->
+                    <Button x:Name="HelloButton" Content="🔓 Windows Hello (PIN / Biometrie)"
+                            Click="HelloButton_Click" Padding="14,8" Margin="0,0,0,8"
+                            Visibility="Collapsed"/>
+
+                    <!-- Backup-Code -->
+                    <Button x:Name="BackupButton" Content="🔑 Backup-Code verwenden"
+                            Click="BackupButton_Click" Style="{StaticResource SecondaryButton}"
+                            Padding="14,8" FontSize="12"/>
+
+                    <!-- Backup-Code-Eingabe -->
+                    <StackPanel x:Name="BackupCodePanel" Visibility="Collapsed" Margin="0,10,0,0">
+                        <TextBlock Text="BACKUP-CODE" Style="{StaticResource Eyebrow}"/>
+                        <TextBox x:Name="BackupCodeBox" Margin="0,0,0,8" MaxLength="19"
+                                 CharacterCasing="Upper" KeyDown="BackupCodeBox_KeyDown"/>
+                        <TextBlock Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap"
+                                   Text="Einer der zwei Codes, die beim Einrichten angezeigt wurden. Ein Code gilt nur einmal – danach Passwort neu setzen."/>
+                    </StackPanel>
+
+                    <!-- Fehlermeldung -->
+                    <TextBlock x:Name="ErrorText" Foreground="{StaticResource Red}" FontSize="12"
+                               TextWrapping="Wrap" Visibility="Collapsed" Margin="0,10,0,0"/>
+
+                    <!-- Anmelden -->
+                    <Button x:Name="UnlockButton" Content="Entsperren" Click="UnlockButton_Click"
+                            Padding="14,10" Margin="0,12,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Style="{StaticResource Muted}" FontSize="10" HorizontalAlignment="Center"
+                       TextWrapping="Wrap" Margin="0,14,0,0" TextAlignment="Center"
+                       Text="Protect. Detect. Understand."/>
+        </StackPanel>
+    </Grid>
+</Window>

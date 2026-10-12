@@ -1,0 +1,715 @@
+<Window x:Class="Sentinel.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SENTINEL 2.3 Beta — Felix Greis (Elian) — Protect. Detect. Understand."
+        Height="860" Width="1120" MinHeight="660" MinWidth="920"
+        Background="{StaticResource Bg}"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ===== Seitenleiste ===== -->
+        <Border Grid.Column="0" Background="{StaticResource Surface}"
+                BorderBrush="{StaticResource Border}" BorderThickness="0,0,1,0">
+            <DockPanel Margin="14,22,14,20">
+                <StackPanel DockPanel.Dock="Top" Margin="6,0,6,26">
+                    <TextBlock Text="SENTINEL" FontSize="26" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="PROTECT. DETECT. UNDERSTAND." FontSize="9"
+                               Foreground="{StaticResource Cyan}" FontFamily="{StaticResource FontMono}"
+                               Margin="2,3,0,0"/>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock Text="SICHERHEIT" Style="{StaticResource Eyebrow}" Margin="4,0,0,4"/>
+                    <RadioButton x:Name="NavOverview" Content="Übersicht" GroupName="Nav"
+                                 Style="{StaticResource NavButton}" IsChecked="True" Checked="Nav_Changed"/>
+                    <RadioButton x:Name="NavLinkShield" Content="LinkShield" GroupName="Nav"
+                                 Style="{StaticResource NavButton}" Checked="Nav_Changed"/>
+                    <RadioButton x:Name="NavFileShield" Content="FileShield" GroupName="Nav"
+                                 Style="{StaticResource NavButton}" Checked="Nav_Changed"/>
+                    <RadioButton x:Name="NavBaseline" Content="Baseline" GroupName="Nav"
+                                 Style="{StaticResource NavButton}" Checked="Nav_Changed"/>
+
+                    <TextBlock Text="SYSTEM" Style="{StaticResource Eyebrow}" Margin="4,16,0,4"/>
+                    <RadioButton x:Name="NavUsers" Content="Nutzer &amp; Rollen" GroupName="Nav"
+                                 Style="{StaticResource NavButton}" Checked="Nav_Changed"/>
+                    <RadioButton x:Name="NavIntegrity" Content="Integrität" GroupName="Nav"
+                                 Style="{StaticResource NavButton}" Checked="Nav_Changed"/>
+                    <RadioButton x:Name="NavHistory" Content="Verlauf" GroupName="Nav"
+                                 Style="{StaticResource NavButton}" Checked="Nav_Changed"/>
+                    <RadioButton x:Name="NavSettings" Content="Einstellungen" GroupName="Nav"
+                                 Style="{StaticResource NavButton}" Checked="Nav_Changed"/>
+                    <RadioButton x:Name="NavAbout" Content="Über SENTINEL" GroupName="Nav"
+                                 Style="{StaticResource NavButton}" Checked="Nav_Changed"/>
+                </StackPanel>
+
+                <!-- Nutzer-Info unten -->
+                <Border DockPanel.Dock="Bottom" Style="{StaticResource Card}" Padding="12" Margin="0,16,0,0">
+                    <StackPanel>
+                        <TextBlock x:Name="UserNameText" Text="—" FontWeight="SemiBold" FontSize="13"/>
+                        <TextBlock x:Name="UserMetaText" Style="{StaticResource Muted}" FontSize="11"/>
+                        <Button x:Name="LockButton" Content="Sperren" Click="Lock_Click"
+                                Style="{StaticResource GhostButton}" HorizontalAlignment="Left"
+                                FontSize="11" Padding="8,4" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+        </Border>
+
+        <!-- ===== Inhalt ===== -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Padding="28,24,28,24">
+            <StackPanel MaxWidth="900" HorizontalAlignment="Left">
+
+                <!-- ===== Übersicht ===== -->
+                <StackPanel x:Name="PageOverview">
+                    <Border Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Canvas Grid.Column="0" Width="140" Height="140" Margin="0,0,24,0">
+                                <Ellipse Canvas.Left="14" Canvas.Top="14" Width="112" Height="112"
+                                         Stroke="{StaticResource Border}" StrokeThickness="11"/>
+                                <Ellipse x:Name="ScoreArc" Canvas.Left="14" Canvas.Top="14"
+                                         Width="112" Height="112"
+                                         Stroke="{StaticResource Violet}" StrokeThickness="11"
+                                         StrokeDashArray="999" StrokeDashOffset="999"
+                                         RenderTransformOrigin="0.5,0.5">
+                                    <Ellipse.RenderTransform>
+                                        <RotateTransform Angle="-90"/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                                <TextBlock Canvas.Left="0" Canvas.Top="48" Width="140" TextAlignment="Center"
+                                           x:Name="ScoreValue" Text="–" FontSize="32" FontWeight="Bold"
+                                           Foreground="White"/>
+                                <TextBlock Canvas.Left="0" Canvas.Top="84" Width="140" TextAlignment="Center"
+                                           Text="von 100" FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                            </Canvas>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock x:Name="ScoreGradeText" Text="Noch keine Prüfung durchgeführt"
+                                           FontSize="20" FontWeight="SemiBold" Foreground="White"/>
+                                <TextBlock x:Name="ScoreSummaryText" Margin="0,6,0,0"
+                                           Text="SENTINEL prüft ausgewählte Sicherheitsgrundlagen deines Systems und erklärt jeden Befund in einfacher Sprache. Alle Prüfungen sind Read-only – SENTINEL verändert nichts an deinem System."
+                                           Style="{StaticResource Muted}"/>
+                                <TextBlock x:Name="LastRunText" Margin="0,8,0,0"
+                                           Style="{StaticResource Muted}" FontSize="11"/>
+                                <TextBlock x:Name="TrendText" Margin="0,4,0,0"
+                                           Style="{StaticResource Muted}" FontSize="11"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="16,0,0,0">
+                                <Button x:Name="RunScanButton" Content="Prüfung starten" Click="RunScan_Click"
+                                        Width="180" Margin="0,0,0,8"/>
+                                <Button x:Name="ExportButton" Content="Bericht exportieren" Click="Export_Click"
+                                        Width="180" Style="{StaticResource SecondaryButton}" IsEnabled="False"/>
+                                <Button x:Name="IntegrityBadge" Content="Integrität prüfen" Click="RunIntegrity_Click"
+                                        Width="180" Style="{StaticResource SecondaryButton}" Margin="0,8,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel x:Name="ResultsPanel" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <!-- ===== LinkShield ===== -->
+                <StackPanel x:Name="PageLinkShield" Visibility="Collapsed">
+                    <TextBlock Text="LinkShield" Style="{StaticResource Heading}"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,20"
+                               Text="Prüft eine Web-Adresse auf dokumentierte Warnsignale – offline, ohne die Seite aufzurufen."/>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="ADRESSE" Style="{StaticResource Eyebrow}"/>
+                            <TextBox x:Name="UrlInput" Text="z. B. paypa1-login.de"/>
+                            <Button Content="URL prüfen (offline)" Click="CheckUrl_Click"
+                                    HorizontalAlignment="Left" Margin="0,10,0,0" Padding="16,8"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="UrlResultCard" Style="{StaticResource Card}" Visibility="Collapsed">
+                        <StackPanel>
+                            <TextBlock x:Name="UrlVerdictHead" FontSize="17" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="UrlVerdictBody" Style="{StaticResource Muted}"
+                                       Margin="0,6,0,0" FontSize="13"/>
+                            <Button x:Name="UrlOnlineButton" Content="Zusätzlich online prüfen (URLhaus)"
+                                    Click="CheckUrlOnline_Click" HorizontalAlignment="Left"
+                                    Margin="0,10,0,0" Padding="14,7" FontSize="12"/>
+                            <Button x:Name="UrlAllDatabasesButton" Content="Alle Datenbanken abfragen"
+                                    Click="CheckAllDatabases_Click" HorizontalAlignment="Left"
+                                    Margin="0,6,0,0" Padding="14,7" FontSize="12"/>
+                            <TextBlock x:Name="UrlOnlineResult" Style="{StaticResource Muted}"
+                                   Margin="0,8,0,0" FontSize="12" Visibility="Collapsed"/>
+                            <Border x:Name="AggregatedCard" Style="{StaticResource Card}" Margin="0,14,0,0" Visibility="Collapsed">
+                                <StackPanel>
+                                    <TextBlock x:Name="AggregatedHead" FontSize="16" FontWeight="FontWeights.SemiBold"/>
+                                    <TextBlock x:Name="AggregatedSummary" Style="{StaticResource Muted}"
+                                               FontSize="13" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                                    <ItemsControl x:Name="AggregatedList" Margin="0,10,0,0">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Margin="0,2">
+                                                    <TextBlock Text="{Binding Icon}" FontWeight="FontWeights.Bold"
+                                                               Width="20" VerticalAlignment="Top"/>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Provider}" FontSize="13" FontWeight="FontWeights.SemiBold"/>
+                                                        <TextBlock Text="{Binding Detail}" Style="{StaticResource Muted}"
+                                                                   FontSize="11" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="WAS LINKSHIELD PRÜFT" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="• Täuschend ähnliche Buchstaben aus anderen Alphabeten (Homoglyphen)&#x0a;• Marken-Imitate durch Ziffernersatz (z. B. paypa1.de)&#x0a;• Markennamen außerhalb der echten Domain&#x0a;• IP-Adressen statt Domainnamen&#x0a;• @-Trick: echter Host nach dem @&#x0a;• Ungewöhnliche Domain-Endungen und Weiterleitungen"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="ONLINE-PRÜFUNG" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="Optional kann die Adresse zusätzlich gegen die öffentliche URLhaus-Datenbank (abuse.ch) geprüft werden. Dabei wird NUR die Adresse übertragen – keine weiteren Daten. Die Einwilligung dafür wird in den Einstellungen einmalig erteilt und ist jederzeit widerrufbar."/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="GRENZEN" Style="{StaticResource Eyebrow}" Foreground="{StaticResource Amber}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="LinkShield arbeitet rein offline und kennt nur die oben genannten, fest definierten Signale. Es prüft NICHT den Inhalt der Seite, keine Live-Reputationsdaten und keine Aktualität. Kein Prüfverfahren kann jede Phishing-Seite erkennen – bei Zweifeln die Seite lieber nicht aufrufen und direkt die echte Domain im Browser eingeben."/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== FileShield ===== -->
+                <StackPanel x:Name="PageFileShield" Visibility="Collapsed">
+                    <TextBlock Text="FileShield" Style="{StaticResource Heading}"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,20"
+                               Text="Prüft eine Datei auf Typ, Auffälligkeiten und – auf Wunsch – gegen öffentliche Malware-Datenbanken."/>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="DATEI AUSWÄHLEN" Style="{StaticResource Eyebrow}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="FilePathBox" Width="400" IsReadOnly="True"
+                                         Text="Keine Datei ausgewählt"/>
+                                <Button Content="Datei wählen…" Click="BrowseFile_Click"
+                                        Margin="10,0,0,0" Padding="14,7" FontSize="12"/>
+                            </StackPanel>
+                            <Button x:Name="ScanFileButton" Content="Datei lokal prüfen" Click="ScanFile_Click"
+                                    HorizontalAlignment="Left" Margin="0,10,0,0" Padding="14,7"
+                                    FontSize="12" IsEnabled="False"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="FileResultCard" Style="{StaticResource Card}" Visibility="Collapsed">
+                        <StackPanel>
+                            <TextBlock x:Name="FileVerdictHead" FontSize="17" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="FileVerdictBody" Style="{StaticResource Muted}"
+                                       Margin="0,6,0,0" FontSize="13"/>
+                            <Button x:Name="FileOnlineButton" Content="Hash online prüfen (MalwareBazaar)"
+                                    Click="ScanFileOnline_Click" HorizontalAlignment="Left"
+                                    Margin="0,10,0,0" Padding="14,7" FontSize="12" IsEnabled="False"/>
+                            <TextBlock x:Name="FileOnlineResult" Style="{StaticResource Muted}"
+                                       Margin="0,8,0,0" FontSize="12" Visibility="Collapsed"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="WAS FILESHIELD MACHT" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="• Erkennt den Dateityp (Magic Bytes), nicht nur die Endung&#x0a;• Prüft auf Merkmale wie Makros in Office-Dateien oder PowerShell-Aufrufe&#x0a;• Berechnet den SHA-256-Hash der Datei&#x0a;• Optional: Abgleich des Hashes gegen MalwareBazaar (abuse.ch)"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="DATENSCHUTZ BEI ONLINE-PRÜFUNG" Style="{StaticResource Eyebrow}"
+                                       Foreground="{StaticResource Green}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="Es wird ausschließlich der SHA-256-Hash übertragen – niemals die Datei selbst, nie der Dateiname, nie dein Benutzername. Aus dem Hash lässt sich die Datei nicht rekonstruieren. Ohne aktiv erteilte Einwilligung (Einstellungen) wird nichts gesendet."/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="GRENZEN" Style="{StaticResource Eyebrow}" Foreground="{StaticResource Amber}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="FileShield führt die Datei NICHT aus und ist kein Ersatz für einen Virenscanner. Ein negativer Treffer bedeutet nur, dass die geprüfte Datenbank die Datei nicht kennt – unbekannte oder neue Schadsoftware wird so nicht erkannt."/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== Baseline ===== -->
+                <StackPanel x:Name="PageBaseline" Visibility="Collapsed">
+                    <TextBlock Text="Baseline" Style="{StaticResource Heading}"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,20"
+                               Text="SENTINEL lernt den Normalzustand deines Systems (Benutzer, Dienste, Autostarts, Freigaben, Aufgaben, Firewall) und meldet danach jede Abweichung. Das ist die stärkste Manipulations-Erkennung, die lokal möglich ist."/>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="STATUS" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock x:Name="BaselineStatusText" Style="{StaticResource Muted}" FontSize="13" Margin="0,0,0,12"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="BaselineLearnButton" Content="Normalzustand lernen"
+                                        Click="BaselineLearn_Click" Padding="14,8" FontSize="13"/>
+                                <Button x:Name="BaselineCheckButton" Content="Jetzt vergleichen"
+                                        Click="BaselineCheck_Click" Style="{StaticResource SecondaryButton}"
+                                        Padding="14,8" FontSize="13" Margin="10,0,0,0" IsEnabled="False"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="BaselineResultCard" Style="{StaticResource Card}" Visibility="Collapsed">
+                        <StackPanel x:Name="BaselineResultPanel"/>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="WAS ABGEDECKT WIRD" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="• Lokale Benutzerkonten und Administratoren (neue Admins = hochverdächtig)&#x0a;• Windows-Dienste inkl. Starttyp-Änderungen&#x0a;• Autostart-Einträge (klassische Malware-Persistenz)&#x0a;• Netzwerkfreigaben&#x0a;• Geplante Aufgaben außerhalb des Microsoft-Ordners&#x0a;• Eingehende Firewall-Regeln"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="GRENZEN" Style="{StaticResource Eyebrow}" Foreground="{StaticResource Amber}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                               Text="Baseline erkennt ÄNDERUNGEN, nicht Absichten. Ein neues Admin-Konto kann legitim sein (du hast es selbst angelegt) oder ein Einbruch – SENTINEL zeigt beides, entscheiden musst du. Deshalb: Normalzustand nur lernen, wenn das System sauber ist."/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== Nutzer & Rollen ===== -->
+                <StackPanel x:Name="PageUsers" Visibility="Collapsed">
+                    <TextBlock Text="Nutzer &amp; Rollen" Style="{StaticResource Heading}"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,16" TextWrapping="Wrap"
+                               Text="Mehrere Nutzer mit Rollen. Admins dürfen alles verwalten, normale Nutzer nur prüfen und berichten."/>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="ANGEMELDET" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock x:Name="CurrentUserText" FontSize="15" FontWeight="FontWeights.SemiBold"
+                                       Foreground="White" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="CurrentUserRole" Style="{StaticResource Muted}" FontSize="12"/>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                <Button x:Name="AddUserButton" Content="+ Nutzer hinzufügen"
+                                        Click="AddUser_Click" Padding="14,8" FontSize="12"/>
+                                <Button x:Name="ImportWindowsButton" Content="Windows-Konten importieren"
+                                        Click="ImportWindowsUsers_Click" Style="{StaticResource SecondaryButton}"
+                                        Padding="14,8" FontSize="12" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="EINGERICHTETE NUTZER" Style="{StaticResource Eyebrow}" Margin="0,20,0,8"/>
+                    <ItemsControl x:Name="UserList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource Card}" Margin="0,4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding DisplayName}" FontSize="15"
+                                                       FontWeight="FontWeights.SemiBold" Foreground="White"/>
+                                            <TextBlock Text="{Binding RoleText}" FontSize="12"
+                                                       Foreground="{StaticResource TextMuted}" Margin="0,2,0,0"/>
+                                            <TextBlock Text="{Binding MetaText}" FontSize="11"
+                                                       Foreground="{StaticResource TextFaint}" Margin="0,2,0,0"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Button Content="Rolle" Tag="{Binding Id}"
+                                                    Click="ChangeUserRole_Click" Padding="10,5" FontSize="11"
+                                                    Margin="4,0"/>
+                                            <Button Content="Passwort" Tag="{Binding Id}"
+                                                    Click="AdminResetPassword_Click" Padding="10,5" FontSize="11"
+                                                    Margin="4,0"/>
+                                            <Button Content="Entfernen" Tag="{Binding Id}"
+                                                    Click="RemoveUser_Click" Style="{StaticResource SecondaryButton}"
+                                                    Padding="10,5" FontSize="11" Margin="4,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock x:Name="UsersHint" Style="{StaticResource Muted}" FontSize="11"
+                               Margin="0,14,0,0" TextWrapping="Wrap"
+                               Text="Der letzte Administrator kann nicht entfernt oder herabgestuft werden – so bleibt das System nie verwaiset."/>
+                </StackPanel>
+
+                <!-- ===== Integrität ===== -->
+                <StackPanel x:Name="PageIntegrity" Visibility="Collapsed">
+                    <TextBlock Text="Integrität" Style="{StaticResource Heading}"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,20"
+                               Text="Prüft, ob SENTINELs eigene Dateien unverändert sind. Erkennt Manipulation, Beschädigung und eingeschleuste Zusatzdateien."/>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="STATUS" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock x:Name="IntegrityStatusText" Style="{StaticResource Muted}" FontSize="13" Margin="0,0,0,12"/>
+                            <Button x:Name="IntegrityRunButton" Content="Jetzt prüfen"
+                                    Click="RunIntegrity_Click" Padding="14,8" FontSize="13"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="IntegrityResultCard" Style="{StaticResource Card}" Visibility="Collapsed">
+                        <StackPanel x:Name="IntegrityResultPanel"/>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="WIE ES FUNKTIONIERT" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="Beim ersten Start wird ein SHA-256-Manifest aller SENTINEL-Dateien erzeugt. Jede Prüfung vergleicht den Ist-Zustand damit. Abweichungen – geänderte, fehlende oder unbekannte ausführbare Dateien – werden gemeldet."/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="GRENZEN" Style="{StaticResource Eyebrow}" Foreground="{StaticResource Amber}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                               Text="Der Schutz basiert auf dem gespeicherten Manifest. Wer das Manifest selbst manipuliert UND alle Dateien konsistent dazu fälscht, kann die Prüfung täuschen. Das ist bei lokaler Software ohne Hardware-Wurzel unvermeidlich – es geht um Erkennung von Änderungen, nicht um absolute Beweissicherheit."/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== Verlauf ===== -->
+                <StackPanel x:Name="PageHistory" Visibility="Collapsed">
+                    <TextBlock Text="Verlauf" Style="{StaticResource Heading}"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,20"
+                               Text="Deine letzten Prüfergebnisse – nur lokal gespeichert, nichts verlässt deinen PC."/>
+
+                    <Border x:Name="HistoryCard" Style="{StaticResource Card}">
+                        <StackPanel x:Name="HistoryPanel">
+                            <TextBlock Text="Noch keine gespeicherten Prüfungen." Style="{StaticResource Muted}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Content="Verlauf löschen" Click="ClearHistory_Click"
+                            Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left"
+                            x:Name="ClearHistoryButton" Padding="14,7"/>
+                </StackPanel>
+
+                <!-- ===== Einstellungen ===== -->
+                <StackPanel x:Name="PageSettings" Visibility="Collapsed">
+                    <TextBlock Text="Einstellungen" Style="{StaticResource Heading}"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,20"
+                               Text="Alle Einstellungen werden lokal gespeichert und wirken sofort."/>
+
+                    <!-- Erscheinungsbild -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="ERSCHEINUNGSBILD" Style="{StaticResource Eyebrow}"/>
+                            <CheckBox x:Name="SetShowExplanations" Content="Erklärungen zu jedem Befund anzeigen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetShowAdvancedDetails" Content="Technische Details und Grenzen anzeigen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetCompactMode" Content="Kompaktes Layout"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetAnimationsEnabled" Content="Animationen aktivieren"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetColorBlindMode" Content="Farbenblind-Modus (Symbole zusätzlich zu Farben)"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Verhalten -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="VERHALTEN" Style="{StaticResource Eyebrow}"/>
+                            <CheckBox x:Name="SetCheckOnStartup" Content="Beim App-Start automatisch prüfen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetMinimizeToTray" Content="In den Infobereich minimieren"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetRunAtWindowsStartup" Content="Bei Windows-Anmeldung ausführen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetStartupCheckQuietMode" Content="Startprüfung still durchführen (nur Log, keine Popups)"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetAutoExportReport" Content="Bericht nach jeder Prüfung automatisch exportieren"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Prüfungen -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="PRÜFUNGEN" Style="{StaticResource Eyebrow}"/>
+                            <CheckBox x:Name="SetIncludeInfoInScore" Content="Informationspunkte im Score berücksichtigen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetTreatWarningsAsFailures" Content="Warnungen wie Fehler zählen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                <TextBlock Text="Score ab dem „Gut“: " VerticalAlignment="Center"
+                                           FontSize="13" Width="170"/>
+                                <ComboBox x:Name="SetMinScore" Width="80" SelectionChanged="SettingChanged">
+                                    <ComboBoxItem Content="70"/>
+                                    <ComboBoxItem Content="75"/>
+                                    <ComboBoxItem Content="80"/>
+                                    <ComboBoxItem Content="85"/>
+                                    <ComboBoxItem Content="90"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11" Margin="170,2,0,8"
+                                       Text="Niedriger = strenger"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Online -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="ONLINE &amp; DATENSCHUTZ" Style="{StaticResource Eyebrow}"/>
+                            <CheckBox x:Name="SetOnlineChecks" Content="Online-Prüfungen erlauben (URLhaus / MalwareBazaar)"
+                                      Margin="0,4" Checked="OnlineConsent_Changed" Unchecked="OnlineConsent_Changed"/>
+                            <TextBlock x:Name="ConsentStateText" Style="{StaticResource Muted}"
+                                       FontSize="11" Margin="24,2,0,4"/>
+                            <CheckBox x:Name="SetConfirmBeforeOnline" Content="Vor jeder Online-Prüfung nachfragen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetTelemetry" Content="Telemetrie senden (immer inaktiv – SENTINEL sendet nichts)"
+                                      Margin="0,4" IsEnabled="False"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Baseline -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="BASELINE" Style="{StaticResource Eyebrow}"/>
+                            <CheckBox x:Name="SetBaselineEnabled" Content="Baseline-Überwachung aktivieren"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetAutoUpdateBaseline" Content="Baseline nach bestandener Prüfung automatisch aktualisieren"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                <TextBlock Text="Warnen ab Verdachtswert: " VerticalAlignment="Center"
+                                           FontSize="13" Width="190"/>
+                                <Slider x:Name="SetBaselineThreshold" Width="150" Minimum="1" Maximum="10"
+                                        TickFrequency="1" IsSnapToTickEnabled="True"
+                                        ValueChanged="SettingChanged"/>
+                                <TextBlock x:Name="BaselineThresholdValue" VerticalAlignment="Center"
+                                           Margin="8,0,0,0" FontSize="13"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Sicherheit der App -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="SICHERHEIT DER APP" Style="{StaticResource Eyebrow}"/>
+                            <CheckBox x:Name="SetRequirePassword" Content="Passwort beim Start verlangen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetLockAfterInactivity" Content="Nach Inaktivität automatisch sperren"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                <TextBlock Text="Sperren nach (Minuten): " VerticalAlignment="Center"
+                                           FontSize="13" Width="170"/>
+                                <Slider x:Name="SetLockAfterMinutes" Width="150" Minimum="1" Maximum="60"
+                                        TickFrequency="1" IsSnapToTickEnabled="True"
+                                        ValueChanged="SettingChanged"/>
+                                <TextBlock x:Name="LockAfterMinutesValue" VerticalAlignment="Center"
+                                           Margin="8,0,0,0" FontSize="13"/>
+                            </StackPanel>
+                            <CheckBox x:Name="SetIntegrityCheckOnStart" Content="Integrität beim Start prüfen"
+                                      Margin="8,4,0,0" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetBlockIfManipulated" Content="Bei Manipulation Start verweigern"
+                                      Margin="24,4,0,0" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Verlauf -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="VERLAUF" Style="{StaticResource Eyebrow}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                <TextBlock Text="Aufbewahrung (Tage): " VerticalAlignment="Center"
+                                           FontSize="13" Width="150"/>
+                                <Slider x:Name="SetHistoryRetention" Width="150" Minimum="7" Maximum="365"
+                                        TickFrequency="7" IsSnapToTickEnabled="True"
+                                        ValueChanged="SettingChanged"/>
+                                <TextBlock x:Name="HistoryRetentionValue" VerticalAlignment="Center"
+                                           Margin="8,0,0,0" FontSize="13"/>
+                            </StackPanel>
+                            <CheckBox x:Name="SetIncludeHistoryInExport" Content="Verlauf in exportierten Bericht aufnehmen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetIncludeHashInExport" Content="Datei-Hash in Bericht aufnehmen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Windows-Autostart -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="WINDOWS-AUTOSTART" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13" Margin="0,0,0,10"
+                                       Text="Prüft bei jeder Windows-Anmeldung im Hintergrund (still, nur Log). Bei Problemen erscheint eine Meldung."/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="InstallStartupButton" Content="Startprüfung einrichten"
+                                        Click="InstallStartup_Click" Padding="14,7" FontSize="12"/>
+                                <Button x:Name="RemoveStartupButton" Content="Entfernen"
+                                        Click="RemoveStartup_Click" Style="{StaticResource SecondaryButton}"
+                                        Padding="14,7" FontSize="12" Margin="10,0,0,0"/>
+                            </StackPanel>
+                            <TextBlock x:Name="StartupTaskStatus" Style="{StaticResource Muted}"
+                                       FontSize="11" Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Bedrohungs-Datenbanken -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="BEDROHUNGS-DATENBANKEN" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13" Margin="0,4,0,14" TextWrapping="Wrap"
+                                       Text="SENTINEL fragt mehrere öffentliche Datenbanken ab. Keys bleiben lokal und werden nur an die jeweilige Datenbank gesendet."/>
+
+                            <!-- ThreatFox (kein Key) -->
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <CheckBox x:Name="SetThreatFoxEnabled" Content="ThreatFox (abuse.ch) — kostenlos, kein Key"
+                                          Width="290" VerticalAlignment="Center" Checked="DatabaseToggle_Changed" Unchecked="DatabaseToggle_Changed"/>
+                                <TextBlock Text="URLs, IPs, Domains, Hashes" Foreground="{StaticResource TextMuted}"
+                                           FontSize="11" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- VirusTotal -->
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <CheckBox x:Name="SetVirusTotalEnabled" Content="VirusTotal — Key nötig"
+                                          Width="290" VerticalAlignment="Center" Checked="DatabaseToggle_Changed" Unchecked="DatabaseToggle_Changed"/>
+                                <TextBox x:Name="VirusTotalKeyBox" Width="220" Margin="10,0,0,0" VerticalAlignment="Center"
+                                         Tag="virustotal" LostFocus="ApiKeyBox_LostFocus"/>
+                            </StackPanel>
+
+                            <!-- Safe Browsing -->
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <CheckBox x:Name="SetSafeBrowsingEnabled" Content="Google Safe Browsing — Key nötig"
+                                          Width="290" VerticalAlignment="Center" Checked="DatabaseToggle_Changed" Unchecked="DatabaseToggle_Changed"/>
+                                <TextBox x:Name="SafeBrowsingKeyBox" Width="220" Margin="10,0,0,0" VerticalAlignment="Center"
+                                         Tag="safebrowsing" LostFocus="ApiKeyBox_LostFocus"/>
+                            </StackPanel>
+
+                            <!-- OTX -->
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <CheckBox x:Name="SetOtxEnabled" Content="AlienVault OTX — Key nötig"
+                                          Width="290" VerticalAlignment="Center" Checked="DatabaseToggle_Changed" Unchecked="DatabaseToggle_Changed"/>
+                                <TextBox x:Name="OtxKeyBox" Width="220" Margin="10,0,0,0" VerticalAlignment="Center"
+                                         Tag="otx" LostFocus="ApiKeyBox_LostFocus"/>
+                            </StackPanel>
+
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11" Margin="0,10,0,0" TextWrapping="Wrap"
+                                       Text="Keys: virustotal.com/gui/my-apikey · console.cloud.google.com (Safe Browsing API) · otx.alienvault.com. Alle kostenlos."/>
+                            <TextBlock x:Name="DatabaseStatusText" Style="{StaticResource Muted}" FontSize="11"
+                                       Margin="0,6,0,0" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Updates -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="UPDATES" Style="{StaticResource Eyebrow}"/>
+                            <CheckBox x:Name="SetAutoCheckUpdates" Content="Automatisch nach Updates suchen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                            <CheckBox x:Name="SetNotifyOnlyCritical" Content="Nur bei kritischen Updates benachrichtigen"
+                                      Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Daten -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="DATEN" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock x:Name="DataPathText" Style="{StaticResource Muted}" FontSize="12" Margin="0,0,0,10"/>
+                            <Button x:Name="ChangePasswordButton" Content="Passwort ändern" Click="ChangePassword_Click"
+                                    Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left"
+                                    Padding="14,7" FontSize="12"/>
+                            <Button x:Name="ResetSettingsButton" Content="Einstellungen zurücksetzen" Click="ResetSettings_Click"
+                                    Style="{StaticResource GhostButton}" HorizontalAlignment="Left"
+                                    Padding="14,7" FontSize="12" Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== Über ===== -->
+                <StackPanel x:Name="PageAbout" Visibility="Collapsed">
+                    <TextBlock Text="Über SENTINEL" Style="{StaticResource Heading}"/>
+
+                    <!-- Branding-Block -->
+                    <Border Style="{StaticResource Card}" Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="SENTINEL" FontSize="28" FontWeight="FontWeights.Light" Foreground="White"/>
+                            <TextBlock Text="Version 2.3 Beta" FontSize="14" Foreground="{StaticResource Cyan}" Margin="0,2,0,0"/>
+                            <TextBlock Text="© Felix Greis — Hacker-Name: Elian" FontSize="13"
+                                       Foreground="{StaticResource TextMuted}" Margin="0,8,0,0"/>
+                            <TextBlock Text="Protect. Detect. Understand." FontFamily="{StaticResource FontMono}"
+                                       FontSize="11" Foreground="{StaticResource TextFaint}" Margin="0,6,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,10,0,0" FontSize="14"
+                               Text="SENTINEL ist ein persönlicher digitaler Sicherheitsassistent. Er macht Sicherheitsbefunde verständlich und führt Schritt für Schritt zu besseren Einstellungen – statt nur technische Warnungen anzuzeigen."/>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="FUNKTIONSUMFANG" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="• 31 Systemprüfungen (System, Konten, Netzwerk, Startverhalten, Persistenz)&#x0a;• LinkShield: offline + 6 Bedrohungs-Datenbanken (ThreatFox, MalwareBazaar, URLhaus, VirusTotal, Safe Browsing, OTX)&#x0a;• FileShield: Datei-Analyse + MalwareBazaar-Abgleich&#x0a;• Baseline: lernt den Normalzustand, erkennt Abweichungen&#x0a;• Integrität: Manifest-Hash der eigenen Dateien&#x0a;• Multi-User mit Rollen (Admin/User), PBKDF2-SHA512 (210k Iterationen)&#x0a;• Windows Hello (PIN/Biometrie) als Anmeldeoption&#x0a;• Zwei Backup-Codes zur Wiederherstellung&#x0a;• Score-Verlauf mit Trend-Anzeige&#x0a;• Startprüfung bei Windows-Anmeldung"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="DATENSCHUTZ" Style="{StaticResource Eyebrow}"
+                                       Foreground="{StaticResource Green}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="Alle Systemprüfungen laufen lokal. Keine Telemetrie, keine Konten, keine Cloud. Online-Prüfungen erfolgen nur nach ausdrücklicher Einwilligung und übertragen ausschließlich die geprüfte Adresse bzw. einen Datei-Hash. Dein Passwort verlässt nie das Gerät."/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="WAS SENTINEL NICHT IST" Style="{StaticResource Eyebrow}"
+                                       Foreground="{StaticResource Amber}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="SENTINEL ist kein Virenscanner und kein Ersatz für Sicherheitssoftware. Es erkennt keine Malware in Echtzeit, überwacht kein Verhalten und kann keine absolute Manipulationserkennung leisten. Der Score ist eine Orientierung aus dokumentierten Einzelprüfungen – keine Garantie."/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="MEHRERE FENSTER" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                               Text="SENTINEL lässt sich beliebig oft gleichzeitig öffnen – jede Instanz arbeitet unabhängig. Es gibt keine Einzelinstanz-Sperre."/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="VERSION" Style="{StaticResource Eyebrow}"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="13"
+                                       Text="MVP · Konzeptstand Oktober 2026"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

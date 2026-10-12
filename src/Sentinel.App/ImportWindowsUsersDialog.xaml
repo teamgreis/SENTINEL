@@ -1,0 +1,50 @@
+<Window x:Class="Sentinel.App.ImportWindowsUsersDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SENTINEL — Windows-Konten importieren"
+        Height="520" Width="460"
+        Background="{StaticResource Bg}"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Grid Margin="32">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="Windows-Konten importieren" Style="{StaticResource Heading}"/>
+            <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,14" TextWrapping="Wrap"
+                       Text="Wähle die Windows-Konten, die als Sentinel-Nutzer angelegt werden sollen. Für jedes Konto wird ein Sentinel-Passwort vergeben (das Windows-Passwort wird nicht übernommen)."/>
+
+            <Border Style="{StaticResource Card}" MaxHeight="240">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="AccountList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,4">
+                                    <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}"
+                                              VerticalAlignment="Center" Width="24"/>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" FontSize="14" Foreground="White"/>
+                                        <TextBlock Text="{Binding Detail}" FontSize="11"
+                                                   Foreground="{StaticResource TextMuted}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <TextBlock Text="PASSWORT FÜR ALLE AUSGEWÄHLTEN" Style="{StaticResource Eyebrow}" Margin="0,14,0,0"/>
+            <PasswordBox x:Name="PasswordBox" Margin="0,0,0,6"/>
+
+            <TextBlock x:Name="ErrorText" Foreground="{StaticResource Red}" FontSize="12"
+                       TextWrapping="Wrap" Visibility="Collapsed" Margin="0,4,0,8"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Abbrechen" Click="Cancel_Click" IsCancel="True"
+                        Style="{StaticResource SecondaryButton}" Padding="16,8"/>
+                <Button Content="Importieren" Click="Ok_Click" IsDefault="True"
+                        Padding="16,8" Margin="10,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
