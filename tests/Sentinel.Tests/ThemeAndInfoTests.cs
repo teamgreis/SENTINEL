@@ -71,11 +71,30 @@ public class ProgramInfoTests
     }
 
     [Fact]
-    public void License_IsMit()
+    public void License_IsProprietary()
     {
-        Assert.Contains("MIT License", ProgramInfo.License);
-        Assert.Contains("Felix Greis", ProgramInfo.License);
-        Assert.Contains("Elian", ProgramInfo.License);
+        // Kurzfassung muss die Kernpunkte nennen
+        Assert.Contains("Proprietäre Nutzungslizenz", ProgramInfo.LicenseShort);
+        Assert.Contains("nicht-kommerzielle", ProgramInfo.LicenseShort);
+        Assert.Contains("Fork", ProgramInfo.LicenseShort);
+        Assert.Contains("Kommerzielle Nutzung", ProgramInfo.LicenseShort, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Felix Greis", ProgramInfo.LicenseShort);
+        Assert.Contains("Elian", ProgramInfo.LicenseShort);
+
+        // Deutsches Recht und Datenschutz müssen referenziert sein
+        Assert.Contains("Bundesrepublik Deutschland", ProgramInfo.LicenseShort);
+        Assert.Contains("DSGVO", ProgramInfo.LicenseShort);
+        Assert.Contains("TDDDG", ProgramInfo.LicenseShort);
+    }
+
+    [Fact]
+    public void License_NotOpenSource()
+    {
+        // Die alte MIT-Formulierung darf nicht mehr drin stehen
+        Assert.DoesNotContain("Permission is hereby granted", ProgramInfo.LicenseShort);
+        Assert.DoesNotContain("MIT License", ProgramInfo.LicenseShort);
+        // Anzeigename darf nicht mehr MIT sein
+        Assert.DoesNotContain("MIT", ProgramInfo.LicenseName);
     }
 
     [Fact]

@@ -1,21 +1,205 @@
-MIT License
+================================================================================
+SENTINEL — PROPRIETÄRE NUTZUNGSLIZENZ
+Stand: 2026
+================================================================================
+
+Copyright (c) 2026 Felix Greis (Alias: Elian). Alle Rechte vorbehalten.
+
+
+--------------------------------------------------------------------------------
+1. GEGENSTAND
+--------------------------------------------------------------------------------
+
+Diese Lizenz regelt die Nutzung der Software SENTINEL (nachfolgend
+"Software") einschließlich ihrer Dokumentation, ihrer Gestaltungselemente,
+ihres Handbuchs und aller zugehörigen Dateien.
+
+Die Software ist urheberrechtlich geschützt. Rechteinhaber ist:
+
+    Felix Greis (Alias: Elian)
+
+
+--------------------------------------------------------------------------------
+2. ERLAUBTE NUTZUNG — PRIVAT
+--------------------------------------------------------------------------------
+
+Ihnen wird ein einfaches, nicht übertragbares, nicht unterlizenzierbares
+Nutzungsrecht eingeräumt, die Software ausschließlich für private,
+nicht-kommerzielle Zwecke zu verwenden.
+
+Erlaubt ist insbesondere:
+
+  a) die Installation und der Betrieb der Software auf einem oder mehreren
+     Geräten, die sich in Ihrem Eigentum oder Ihrer unmittelbaren Kontrolle
+     befinden;
+
+  b) die bestimmungsgemäße Nutzung aller Funktionen, einschließlich der
+     lokalen Sicherheitsprüfungen, der Berichtsfunktionen und des Handbuchs;
+
+  c) das Anfertigen einer Sicherungskopie, soweit dies für die bestimmungs-
+     gemäße Nutzung erforderlich ist;
+
+
+--------------------------------------------------------------------------------
+3. UNTERSAGTE HANDLUNGEN
+--------------------------------------------------------------------------------
+
+Ohne vorherige ausdrückliche schriftliche Genehmigung des Rechteinhabers ist
+es Ihnen untersagt:
+
+  a) die Software ganz oder teilweise zu vervielfältigen, zu verbreiten, zu
+     veröffentlichen oder Dritten zugänglich zu machen;
+
+  b) die Software zu verändern, zu bearbeiten, zu übersetzen oder daraus
+     abgeleitete Werke zu erstellen;
+
+  c) die Software oder Teile davon als Grundlage eines eigenen Programms zu
+     verwenden ("Fork");
+
+  d) die Software an Dritte weiterzugeben, zu vermieten, zu verleihen, zu
+     verpfänden oder sonst zur Nutzung zu überlassen;
+
+  e) Urheberrechtsvermerke, Kennzeichnungen, Branding-Elemente oder
+     Herstellerangaben zu entfernen, zu verändern oder unkenntlich zu machen;
+
+  f) die Software zurückzuentwickeln (Reverse Engineering), zu dekompilieren
+     oder zu disassemblieren, soweit dies nicht zwingendes Recht erlaubt;
+
+  g) die Software für kommerzielle Zwecke zu nutzen, insbesondere im
+     Unternehmensumfeld, in Behörden, in der Lehre oder gegen Entgelt für
+     Dritte;
+
+  h) die Software zusammen mit anderer Software zu bündeln oder in ein
+     Gesamtprodukt zu integrieren.
+
+
+--------------------------------------------------------------------------------
+4. KOMMERZIELLE NUTZUNG — AUF ANFRAGE
+--------------------------------------------------------------------------------
+
+Die kommerzielle Nutzung der Software ist grundsätzlich ausgeschlossen.
+
+Eine kommerzielle Nutzung ist ausschließlich aufgrund einer gesonderten,
+individuell mit dem Rechteinhaber zu vereinbarenden Lizenz zulässig. Eine
+solche Lizenz wird auf schriftliche Anfrage hin erteilt.
+
+Anfragen richten Sie bitte unter Angabe des beabsichtigten Nutzungszwecks,
+des Nutzerkreises und der Einsatzumgebung an den Rechteinhaber.
+
+Bis zum Abschluss einer solchen gesonderten Vereinbarung ist jede
+kommerzielle Nutzung unzulässig.
+
+
+--------------------------------------------------------------------------------
+5. DAUER UND BEENDIGUNG
+--------------------------------------------------------------------------------
+
+Das Nutzungsrecht nach Ziffer 2 gilt auf unbestimmte Zeit.
+
+Es endet automatisch, ohne dass es einer Kündigung bedarf, wenn Sie gegen
+eine Bestimmung dieser Lizenz verstoßen. Im Falle der Beendigung sind Sie
+verpflichtet, die Software vollständig zu deinstallieren und alle Kopien
+einschließlich der Sicherungskopien zu löschen.
+
+Die Ziffern 6 bis 9 gelten über eine Beendigung hinaus fort.
+
+
+--------------------------------------------------------------------------------
+6. HAFTUNGSAUSSCHLUSS
+--------------------------------------------------------------------------------
+
+Die Software wird ohne Mängelgewähr und ohne ausdrückliche oder still-
+schweigende Garantien jeglicher Art bereitgestellt.
+
+Der Rechteinhaber haftet nicht für Schäden, die aus der Nutzung oder der
+Unmöglichkeit der Nutzung der Software entstehen, es sei denn, sie beruhen
+auf Vorsatz, grober Fahrlässigkeit oder der Verletzung des Lebens, des
+Körpers oder der Gesundheit.
+
+Im Übrigen ist die Haftung für mittelbare Schäden, Folgeschäden und ent-
+gangenen Gewinn ausgeschlossen, soweit gesetzlich zulässig.
+
+Die Software ist ein Analysewerkzeug und kein Ersatz für ein Antiviren-
+programm oder eine Sicherheitszertifizierung. Der von der Software berechnete
+Sicherheits-Score stellt eine Orientierung dar und keinen Beweis für den
+Sicherheitszustand eines Systems.
+
+
+--------------------------------------------------------------------------------
+7. DATENSCHUTZ
+--------------------------------------------------------------------------------
+
+Die Software ist auf lokale Verarbeitung ausgelegt. Es findet keine Tele-
+metrie, kein Tracking und keine Übertragung personenbezogener Daten an den
+Rechteinhaber statt.
+
+Alle Prüfergebnisse, Einstellungen und Nutzerdaten werden ausschließlich
+lokal auf Ihrem Gerät gespeichert.
+
+Online-Prüfungen erfolgen nur nach Ihrer ausdrücklichen Einwilligung. Dabei
+werden ausschließlich die geprüfte Web-Adresse oder der SHA-256-Hash einer
+Datei übertragen — niemals Dateiinhalte, Dateinamen oder persönliche Daten.
+Die Einwilligung ist jederzeit widerrufbar.
+
+Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. a und lit. f
+der Datenschutz-Grundverordnung (DSGVO).
+
+Soweit für den bestimmungsgemäßen Betrieb technisch erforderlich, erfolgt der
+Zugriff auf Informationen Ihres Endgeräts nach Maßgabe des
+Telekommunikation-Digitale-Dienste-Datenschutz-Gesetzes (TDDDG), derzeit
+insbesondere § 25 TDDDG.
+
+
+--------------------------------------------------------------------------------
+8. ANWENDBARES RECHT
+--------------------------------------------------------------------------------
+
+Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des
+UN-Kaufrechts (CISG).
+
+Anwendbar sind insbesondere:
+
+  - das Urheberrechtsgesetz (UrhG), insbesondere §§ 31, 69a ff.
+  - das Bürgerliche Gesetzbuch (BGB)
+  - die Datenschutz-Grundverordnung (DSGVO)
+  - das Telekommunikation-Digitale-Dienste-Datenschutz-Gesetz (TDDDG)
+
+Sollten einzelne Bestimmungen dieser Lizenz unwirksam sein oder werden,
+bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. An die Stelle der
+unwirksamen Bestimmung tritt die gesetzliche Regelung.
+
+
+--------------------------------------------------------------------------------
+9. SCHLUSSBESTIMMUNGEN
+--------------------------------------------------------------------------------
+
+Diese Lizenz stellt die gesamte Vereinbarung zwischen Ihnen und dem Rechtein-
+haber über die Nutzung der Software dar.
+
+Änderungen und Ergänzungen dieser Lizenz bedürfen der Schriftform. Dies gilt
+auch für den Verzicht auf dieses Formerfordernis.
+
+Der Rechteinhaber behält sich das Recht vor, diese Lizenz für künftige
+Versionen der Software zu ändern. Eine Änderung wirkt nicht auf bereits
+erworbene Nutzungsrechte an früheren Versionen.
+
+
+--------------------------------------------------------------------------------
+
+SENTINEL 2.5 Beta — Protect. Detect. Understand.
 
 Copyright (c) 2026 Felix Greis (Alias: Elian)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Kontakt für kommerzielle Lizenzen: Anfrage über das Projekt-Repository
+https://github.com/teamgreis/SENTINEL
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+================================================================================
+HINWEIS ZUM STATUS
+================================================================================
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Dieses Dokument ist die vom Rechteinhaber festgelegte Nutzungslizenz der
+Software. Es stellt keine Rechtsberatung dar. Für verbindliche Auskünfte,
+insbesondere zur gewerblichen Nutzung, wenden Sie sich an eine qualifizierte
+Rechtsberatung.
+
+================================================================================

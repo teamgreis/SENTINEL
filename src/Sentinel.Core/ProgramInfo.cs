@@ -37,28 +37,40 @@ public static class ProgramInfo
         "Der Sicherheits-Score ist eine Orientierung, keine Zertifizierung. Ein hoher Score ist kein Beweis für absolute Sicherheit."
     };
 
-    /// <summary>Der vollständige Lizenztext (MIT).</summary>
-    public const string License = @"MIT License
+    /// <summary>
+    /// Kurzfassung der Lizenz für den Info-Dialog. Der vollständige Text
+    /// liegt in der Datei LICENSE im Projekt.
+    /// </summary>
+    public const string LicenseShort =
+        "SENTINEL — Proprietäre Nutzungslizenz\n\n" +
+        "Copyright (c) 2026 Felix Greis (Alias: Elian). Alle Rechte vorbehalten.\n\n" +
+        "ERLAUBT\n" +
+        "  • Private, nicht-kommerzielle Nutzung\n" +
+        "  • Installation und Betrieb auf eigenen Geräten\n" +
+        "  • Sicherungskopie für die bestimmungsgemäße Nutzung\n\n" +
+        "UNTERSAGT (ohne schriftliche Genehmigung)\n" +
+        "  • Vervielfältigen, Verbreiten, Veröffentlichen\n" +
+        "  • Verändern, Bearbeiten, Übersetzen\n" +
+        "  • Fork — als Grundlage eines eigenen Programms\n" +
+        "  • Weitergabe an Dritte, Vermieten, Verpfänden\n" +
+        "  • Entfernen von Urheberrechts- oder Branding-Vermerken\n" +
+        "  • Reverse Engineering, Dekompilierung (soweit nicht Recht erzwingt)\n" +
+        "  • Kommerzielle Nutzung\n" +
+        "  • Bündelung mit anderer Software\n\n" +
+        "KOMMERZIELLE NUTZUNG\n" +
+        "  Nur auf Anfrage und mit gesonderter schriftlicher Lizenz.\n\n" +
+        "DATENSCHUTZ\n" +
+        "  Keine Telemetrie, kein Tracking. Alle Daten bleiben lokal.\n" +
+        "  Online-Prüfungen nur nach Einwilligung — übertragen werden\n" +
+        "  ausschließlich die geprüfte Adresse oder der SHA-256-Hash.\n" +
+        "  Rechtsgrundlage: Art. 6 Abs. 1 lit. a, f DSGVO; § 25 TDDDG.\n\n" +
+        "RECHT\n" +
+        "  Recht der Bundesrepublik Deutschland, Stand 2026.\n" +
+        "  Anwendbar: UrhG (§§ 31, 69a ff.), BGB, DSGVO, TDDDG.\n\n" +
+        "Der vollständige Lizenztext steht in der Datei LICENSE im Projekt.";
 
-Copyright (c) 2026 Felix Greis (Alias: Elian)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the ""Software""), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.";
+    /// <summary>Lizenz-Art für die Anzeige (früher MIT).</summary>
+    public const string LicenseName = "Proprietäre Nutzungslizenz (nur privat)";
 
     /// <summary>Eine Zeile des Änderungsprotokolls.</summary>
     public sealed record ChangelogEntry(string Version, string Date, string[] Changes);
@@ -72,7 +84,7 @@ SOFTWARE.";
             "Info-Dialog: Lizenz, Beschreibung, Konzept, Grenzen und Änderungsprotokoll",
             "Integriertes Handbuch mit Schritt-für-Schritt-Anleitungen direkt im Programm",
             "5 neue Prüfungen: Windows-Hello-Verfügbarkeit, Defender-Tamper-Schutz, Papierkorb-Größe, Windows-Sandbox, WSL-Status",
-            "Passwort-Stärke-Anzeige beim Anlegen und Ändern von Passwörtern",
+            "Lizenz geändert: proprietäre Nutzungslizenz — private Nutzung erlaubt, kommerziell nur auf Anfrage",
             "Härtung: PowerShell-Aufrufe laufen über stdin statt über die Kommandozeile (keine Injection möglich)",
             "Fix: Admin-Rechte-Leck bei unbekanntem Nutzernamen",
             "Fix: Passwort-Ändern schlug immer fehl (falscher CurrentUser)"
@@ -183,5 +195,5 @@ SOFTWARE.";
     public static string Summary =>
         $"SENTINEL {Branding.FullVersion} — {Branding.Tagline}\n" +
         $"© {Branding.Author} (Alias: {Branding.AuthorAlias})\n" +
-        $"Lizenz: MIT — {Manual.Length} Handbuch-Kapitel, {Changelog.Length} Versionen im Protokoll.";
+        $"Lizenz: {LicenseName} — {Manual.Length} Handbuch-Kapitel, {Changelog.Length} Versionen im Protokoll.";
 }

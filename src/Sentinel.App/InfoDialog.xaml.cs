@@ -11,7 +11,7 @@ public partial class InfoDialog : Window
 
         // Kopf
         VersionText.Text = $"Version {Branding.FullVersion} — {Branding.Tagline}";
-        CreditText.Text = $"© {Branding.Author} · Hacker-Name: {Branding.AuthorAlias} · Lizenz: MIT";
+        CreditText.Text = $"© {Branding.Author} · Hacker-Name: {Branding.AuthorAlias} · {ProgramInfo.LicenseName}";
 
         // Über
         DescText.Text = ProgramInfo.Description;
@@ -22,7 +22,7 @@ public partial class InfoDialog : Window
         ChangelogList.ItemsSource = ProgramInfo.Changelog;
 
         // Lizenz
-        LicenseText.Text = ProgramInfo.License;
+        LicenseText.Text = ProgramInfo.LicenseShort;
     }
 
     private void OpenManual_Click(object sender, RoutedEventArgs e)
