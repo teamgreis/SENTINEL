@@ -27,6 +27,10 @@ public partial class App : Application
 
         // 1. Integrität prüfen (falls Manifest existiert)
         var settings = Core.Settings.AppSettings.Load(Path.Combine(AppDataDir, "settings.json"));
+
+        // Gespeichertes Design laden (unbekannter Wert → Dark)
+        ThemeManager.Apply(ThemeManager.Parse(settings.Theme.ToString()));
+
         if (settings.IntegrityCheckOnStart)
         {
             var report = CheckIntegrity();

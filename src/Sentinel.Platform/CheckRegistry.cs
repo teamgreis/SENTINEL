@@ -65,7 +65,14 @@ public static class CheckRegistry
             new RecoveryPartitionCheck(),
             new UpdatePauseCheck(),
             new FastStartupCheck(),
-            new RdpNlaCheck()
+            new RdpNlaCheck(),
+
+            // ---------- Runde 4 (v2.5) ----------
+            new WindowsHelloAvailabilityCheck(),
+            new DefenderTamperCheck(),
+            new WindowsSandboxCheck(),
+            new RecycleBinSizeCheck(),
+            new WslStatusCheck()
         };
     }
 }

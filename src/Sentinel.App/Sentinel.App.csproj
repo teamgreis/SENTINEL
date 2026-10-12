@@ -10,7 +10,7 @@
     <RootNamespace>Sentinel.App</RootNamespace>
     <AssemblyName>Sentinel</AssemblyName>
     <ApplicationIcon />
-    <Version>2.3.0</Version>
+    <Version>2.5.0</Version>
     <Product>SENTINEL</Product>
     <Company>Felix Greis</Company>
   </PropertyGroup>
@@ -18,6 +18,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Sentinel.Core\Sentinel.Core.csproj" />
     <ProjectReference Include="..\Sentinel.Platform\Sentinel.Platform.csproj" />
+  </ItemGroup>
+
+  <!-- Design-Dictionaries müssen als Inhalt mit ins Ausgabeverzeichnis,
+       sonst fehlen sie im Publish und der Theme-Wechsel schlägt fehl. -->
+  <ItemGroup>
+    <None Include="Themes\*.xaml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

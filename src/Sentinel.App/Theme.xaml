@@ -1,42 +1,27 @@
-<!-- SENTINEL Designsystem v2 -->
-<!-- Tokens: Farben, Typografie, Abstände, Radien. Drei Themes über Converter-Umschaltung. -->
+<!-- SENTINEL Designsystem v3 -->
+<!-- Farb-Tokens kommen aus Themes/Theme.<Name>.xaml (5 Designs, zur Laufzeit tauschbar). -->
+<!-- Styles und Typografie stehen hier und verweisen per StaticResource auf die Tokens. -->
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
-    <!-- ===== Farb-Tokens (Dark) ===== -->
-    <Color x:Key="BgColor">#0A0912</Color>
-    <Color x:Key="SurfaceColor">#13111F</Color>
-    <Color x:Key="SurfaceHoverColor">#1C1929</Color>
-    <Color x:Key="SurfaceLightColor">#242135</Color>
-    <Color x:Key="BorderColor">#2E2A44</Color>
-    <Color x:Key="VioletColor">#8B5CF6</Color>
-    <Color x:Key="NeonVioletColor">#A855F7</Color>
-    <Color x:Key="CyanColor">#22D3EE</Color>
-    <Color x:Key="GreenColor">#4ADE80</Color>
-    <Color x:Key="AmberColor">#FBBF24</Color>
-    <Color x:Key="RedColor">#F87171</Color>
-    <Color x:Key="TextColor">#E7E5F0</Color>
-    <Color x:Key="TextMutedColor">#8B87A0</Color>
-    <Color x:Key="TextFaintColor">#5C5872</Color>
-    <Color x:Key="NavActiveColor">#221E33</Color>
-
-    <SolidColorBrush x:Key="Bg" Color="{StaticResource BgColor}"/>
-    <SolidColorBrush x:Key="Surface" Color="{StaticResource SurfaceColor}"/>
-    <SolidColorBrush x:Key="SurfaceHover" Color="{StaticResource SurfaceHoverColor}"/>
-    <SolidColorBrush x:Key="SurfaceLight" Color="{StaticResource SurfaceLightColor}"/>
-    <SolidColorBrush x:Key="Border" Color="{StaticResource BorderColor}"/>
-    <SolidColorBrush x:Key="Violet" Color="{StaticResource VioletColor}"/>
-    <SolidColorBrush x:Key="NeonViolet" Color="{StaticResource NeonVioletColor}"/>
-    <SolidColorBrush x:Key="Cyan" Color="{StaticResource CyanColor}"/>
-    <SolidColorBrush x:Key="Green" Color="{StaticResource GreenColor}"/>
-    <SolidColorBrush x:Key="Amber" Color="{StaticResource AmberColor}"/>
-    <SolidColorBrush x:Key="Red" Color="{StaticResource RedColor}"/>
-    <SolidColorBrush x:Key="Text" Color="{StaticResource TextColor}"/>
-    <SolidColorBrush x:Key="TextMuted" Color="{StaticResource TextMutedColor}"/>
-    <SolidColorBrush x:Key="TextFaint" Color="{StaticResource TextFaintColor}"/>
-    <SolidColorBrush x:Key="NavActive" Color="{StaticResource NavActiveColor}"/>
+    <!-- ===== Brushes (aus den Token-Colors des aktiven Designs) ===== -->
+    <SolidColorBrush x:Key="Bg" Color="{DynamicResource BgColor}"/>
+    <SolidColorBrush x:Key="Surface" Color="{DynamicResource SurfaceColor}"/>
+    <SolidColorBrush x:Key="SurfaceHover" Color="{DynamicResource SurfaceHoverColor}"/>
+    <SolidColorBrush x:Key="SurfaceLight" Color="{DynamicResource SurfaceLightColor}"/>
+    <SolidColorBrush x:Key="Border" Color="{DynamicResource BorderColor}"/>
+    <SolidColorBrush x:Key="Violet" Color="{DynamicResource VioletColor}"/>
+    <SolidColorBrush x:Key="NeonViolet" Color="{DynamicResource NeonVioletColor}"/>
+    <SolidColorBrush x:Key="Cyan" Color="{DynamicResource CyanColor}"/>
+    <SolidColorBrush x:Key="Green" Color="{DynamicResource GreenColor}"/>
+    <SolidColorBrush x:Key="Amber" Color="{DynamicResource AmberColor}"/>
+    <SolidColorBrush x:Key="Red" Color="{DynamicResource RedColor}"/>
+    <SolidColorBrush x:Key="Text" Color="{DynamicResource TextColor}"/>
+    <SolidColorBrush x:Key="TextMuted" Color="{DynamicResource TextMutedColor}"/>
+    <SolidColorBrush x:Key="TextFaint" Color="{DynamicResource TextFaintColor}"/>
+    <SolidColorBrush x:Key="NavActive" Color="{DynamicResource NavActiveColor}"/>
 
     <!-- ===== Typografie ===== -->
     <FontFamily x:Key="FontUI">Segoe UI</FontFamily>

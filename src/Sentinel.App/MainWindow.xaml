@@ -1,7 +1,7 @@
 <Window x:Class="Sentinel.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="SENTINEL 2.3 Beta — Felix Greis (Elian) — Protect. Detect. Understand."
+        Title="SENTINEL 2.5 Beta — Felix Greis (Elian) — Protect. Detect. Understand."
         Height="860" Width="1120" MinHeight="660" MinWidth="920"
         Background="{StaticResource Bg}"
         WindowStartupLocation="CenterScreen">
@@ -417,13 +417,26 @@
                 <!-- ===== Einstellungen ===== -->
                 <StackPanel x:Name="PageSettings" Visibility="Collapsed">
                     <TextBlock Text="Einstellungen" Style="{StaticResource Heading}"/>
-                    <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,20"
-                               Text="Alle Einstellungen werden lokal gespeichert und wirken sofort."/>
+                    <StackPanel Orientation="Horizontal" Margin="0,4,0,20">
+                        <TextBlock Style="{StaticResource Muted}"
+                                   Text="Alle Einstellungen werden lokal gespeichert und wirken sofort."/>
+                        <Button x:Name="InfoButton" Content="ⓘ Info" Style="{StaticResource GhostButton}"
+                                Width="80" Margin="16,0,0,0" ToolTip="Lizenz, Beschreibung, Konzept und Versionsinfos"
+                                Click="InfoButton_Click"/>
+                        <Button x:Name="ManualButton" Content="📖 Handbuch" Style="{StaticResource GhostButton}"
+                                Width="120" Margin="8,0,0,0" ToolTip="Schritt-für-Schritt-Anleitung im Programm"
+                                Click="ManualButton_Click"/>
+                    </StackPanel>
 
                     <!-- Erscheinungsbild -->
                     <Border Style="{StaticResource Card}">
                         <StackPanel>
                             <TextBlock Text="ERSCHEINUNGSBILD" Style="{StaticResource Eyebrow}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <TextBlock Text="Design:" Width="120" VerticalAlignment="Center"/>
+                                <ComboBox x:Name="SetThemeCombo" Width="280" SelectionChanged="ThemeCombo_SelectionChanged"/>
+                            </StackPanel>
+                            <TextBlock x:Name="ThemeHint" Style="{StaticResource Muted}" Margin="120,2,0,8" FontSize="11"/>
                             <CheckBox x:Name="SetShowExplanations" Content="Erklärungen zu jedem Befund anzeigen"
                                       Margin="0,4" Checked="SettingChanged" Unchecked="SettingChanged"/>
                             <CheckBox x:Name="SetShowAdvancedDetails" Content="Technische Details und Grenzen anzeigen"
@@ -655,7 +668,7 @@
                     <Border Style="{StaticResource Card}" Margin="0,10,0,0">
                         <StackPanel>
                             <TextBlock Text="SENTINEL" FontSize="28" FontWeight="FontWeights.Light" Foreground="White"/>
-                            <TextBlock Text="Version 2.3 Beta" FontSize="14" Foreground="{StaticResource Cyan}" Margin="0,2,0,0"/>
+                            <TextBlock Text="Version 2.5 Beta" FontSize="14" Foreground="{StaticResource Cyan}" Margin="0,2,0,0"/>
                             <TextBlock Text="© Felix Greis — Hacker-Name: Elian" FontSize="13"
                                        Foreground="{StaticResource TextMuted}" Margin="0,8,0,0"/>
                             <TextBlock Text="Protect. Detect. Understand." FontFamily="{StaticResource FontMono}"

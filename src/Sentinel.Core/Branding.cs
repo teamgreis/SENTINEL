@@ -4,7 +4,7 @@ namespace Sentinel.Core;
 public static class Branding
 {
     public const string ProductName = "SENTINEL";
-    public const string Version = "2.3";
+    public const string Version = "2.5";
     public const string Stage = "Beta";
     public const string Author = "Felix Greis";
     public const string AuthorAlias = "Elian";

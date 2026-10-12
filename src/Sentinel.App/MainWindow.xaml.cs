@@ -825,6 +825,14 @@ public partial class MainWindow : Window
 
     private void LoadSettingsIntoUi()
     {
+        // Design-Auswahl füllen (nur beim ersten Aufruf)
+        if (SetThemeCombo.Items.Count == 0)
+        {
+            foreach (var mode in ThemeManager.All)
+                SetThemeCombo.Items.Add(ThemeManager.DisplayName(mode));
+        }
+        SetThemeCombo.SelectedIndex = Array.IndexOf(ThemeManager.All.ToArray(), ThemeManager.Parse(_settings.Theme.ToString()));
+
         SetShowExplanations.IsChecked = _settings.ShowExplanations;
         SetShowAdvancedDetails.IsChecked = _settings.ShowAdvancedDetails;
         SetCompactMode.IsChecked = _settings.CompactMode;
@@ -918,6 +926,43 @@ public partial class MainWindow : Window
 
         UpdateSliderLabels();
         _settings.Save(Path.Combine(AppDataDir, "settings.json"));
+    }
+
+    /// <summary>Design-Auswahl: Dictionary tauschen und speichern.</summary>
+    private void ThemeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_settings is null) return;
+
+        int idx = SetThemeCombo.SelectedIndex;
+        if (idx < 0 || idx >= ThemeManager.All.Count) return;
+
+        var mode = ThemeManager.All[idx];
+        bool applied = ThemeManager.Apply(mode);
+
+        if (applied)
+        {
+            _settings.Theme = mode;
+            _settings.Save(Path.Combine(AppDataDir, "settings.json"));
+            ThemeHint.Text = Core.Settings.ThemeNames.Hint(mode);
+        }
+        else
+        {
+            ThemeHint.Text = "Design konnte nicht geladen werden – vorheriges Design bleibt aktiv.";
+        }
+    }
+
+    /// <summary>Info-Button: Lizenz, Konzept, Beschreibung, Versionsinfos.</summary>
+    private void InfoButton_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new InfoDialog { Owner = this };
+        dialog.ShowDialog();
+    }
+
+    /// <summary>Handbuch-Button: Schritt-für-Schritt im Programm.</summary>
+    private void ManualButton_Click(object sender, RoutedEventArgs e)
+    {
+        var manual = new ManualWindow { Owner = this };
+        manual.ShowDialog();
     }
 
     private void OnlineConsent_Changed(object sender, RoutedEventArgs e)

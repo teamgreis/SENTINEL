@@ -16,7 +16,7 @@ public sealed class ListeningPortsCheck : ICheck
         try
         {
             var (output, error) = await PowerShell.RunAsync(
-                "Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -in 23,21,135,139,445,3389,5900,5985,5986 } | ForEach-Object { \"$($_.LocalPort)|$($_.State)|$($_.OwningProcess)\" }",
+                "Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -in 23,21,135,139,445,3389,5900,5985,5986 } | ForEach-Object { \"$($_.LocalPort)|$($_.State)|$((Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName)\" }",
                 ct).ConfigureAwait(false);
 
             var risky = ListeningPortsAnalyzer.AnalyzeRisky(output);

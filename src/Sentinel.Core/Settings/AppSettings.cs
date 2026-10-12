@@ -2,12 +2,19 @@ using System.Text.Json;
 
 namespace Sentinel.Core.Settings;
 
-/// <summary>Design-Themes.</summary>
+/// <summary>Design-Themes (5 Designs).</summary>
 public enum ThemeMode
 {
+    /// <summary>Sentinel Standard — dunkles Violett/Cyan.</summary>
     Dark,
+    /// <summary>Midnight — tiefes Nachtblau.</summary>
     Midnight,
-    DeepSpace
+    /// <summary>DeepSpace — schwarz mit Neon-Grün.</summary>
+    DeepSpace,
+    /// <summary>Solarized — warmes Sepia/Dunkelbraun.</summary>
+    Solarized,
+    /// <summary>Mono — reines Schwarz/Weiß, maximaler Kontrast, farbfrei.</summary>
+    Mono
 }
 
 /// <summary>Scan-Tiefe.</summary>

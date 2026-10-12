@@ -6,6 +6,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme.xaml"/>
+                <!-- Farb-Tokens (Standard: Dark). ThemeManager tauscht dieses
+                     Dictionary zur Laufzeit gegen ein anderes Design. -->
+                <ResourceDictionary Source="Themes/Theme.Dark.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
